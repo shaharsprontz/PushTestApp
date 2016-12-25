@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">PushTestApp</string>
+    <color name="black">#000</color>
+</resources>
