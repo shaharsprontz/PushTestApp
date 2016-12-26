@@ -3,12 +3,15 @@ package com.example.shahar.pushtestapp;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.lang.reflect.Array;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mConditionTextView = (TextView)findViewById(R.id.conditionId);
+        mConditionTextView = (TextView) findViewById(R.id.conditionId);
     }
 
     @Override
@@ -33,8 +36,9 @@ public class MainActivity extends AppCompatActivity {
         mConditionRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String text = dataSnapshot.getValue(String.class);
-                mConditionTextView.setText(text);
+                    String text = dataSnapshot.getValue(String.class);
+                    mConditionTextView.setText(text);
+
             }
 
             @Override
@@ -44,3 +48,30 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 }
+
+
+
+
+
+
+
+
+//        FirebaseDatabase.getInstance().getReference().child("apps")
+//                .addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                            User user = snapshot.getValue(User.class);
+//                            System.out.println(user.condition);
+//                        }
+//                    }
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//
+//                    }
+//                });
+
+
+
+
+
