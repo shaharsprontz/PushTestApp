@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mConditionTextView = (TextView) findViewById(R.id.conditionId);
+        mConditionTextView = (TextView) findViewById(R.id.downApps);
     }
 
     @Override
