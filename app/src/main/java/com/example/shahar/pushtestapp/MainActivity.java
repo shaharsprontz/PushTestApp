@@ -3,15 +3,18 @@ package com.example.shahar.pushtestapp;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
-import android.util.Log;
 
+import com.firebase.client.Firebase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
-import java.lang.reflect.Array;
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mConditionTextView = (TextView) findViewById(R.id.downApps);
+
     }
 
     @Override
@@ -39,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
                     String text = dataSnapshot.getValue(String.class);
                     mConditionTextView.setText(text);
 
+                String username = "puf";
+                FirebaseMessaging.getInstance().subscribeToTopic("user_"+username);
+                sendNotificationToUser("puf", "Hi there puf!");
+
             }
 
             @Override
@@ -47,29 +55,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    public static void sendNotificationToUser(String user, final String message) {
+        Firebase ref = new Firebase("https://pushtest-eb14f.firebaseio.com");
+        final Firebase notifications = ref.child("condition");
+
+        Map notification = new HashMap<>();
+        notification.put("username", user);
+        notification.put("message", message);
+
+        notifications.push().setValue(notification);
+    }
+
 }
 
 
-
-
-
-
-
-
-//        FirebaseDatabase.getInstance().getReference().child("apps")
-//                .addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                            User user = snapshot.getValue(User.class);
-//                            System.out.println(user.condition);
-//                        }
-//                    }
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {
-//
-//                    }
-//                });
 
 
 
